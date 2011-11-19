@@ -1,0 +1,142 @@
+エキスパートPythonプログラミング読書会 第二期 01
+--------------------------------------------------
+
+しみずかわさんの紹介
+~~~~~~~~~~~~~~~~~~~~~
+
+* Internet WeekでSphinx入門やります
+    * 11/30 16:00-18:30
+    * 料金 5,000円
+* 先週、結婚しました
+
+
+各種実装
+~~~~~~~~~~
+
+* Jython(ジャイソン)
+    * そんなに実行速度が速くない
+    * 開発が遅い
+
+* IronPython
+    * 2010年で一番速い実装だった
+    * 今ではPyPyが一番速い
+    * 元はマイクロソフトで開発していた
+
+*  PyPy
+    * 現在の最新はv1.6
+    * 研究色の強い実装
+    * C拡張モジュールが動かないことがある
+    * モジュールの依存関係が難しいので、本番環境で使われない
+    * ピュアモジュールだけなら問題ない
+    * #pypy-jaに"PyPyを使う意味って何？"と投げると、回答がたくさん返ってくる
+
+
+インストール
+~~~~~~~~~~~~~
+
+* 自前ビルド
+    * CentOS5はPython2.4
+    * 依存関係が難しく、一部のモジュールが動かないことがある
+    * 出来るだけ自前ビルドしないほうが良い
+    * ビルドでわからないときはメーリングリストに投げると、解決するかも？
+
+* Windows
+    * しみずかわさんは、Windows派
+    * しみずかわさんは、ほとんど全てのバージョンを入れている
+    * 自分でインストールするので、好きなバージョン入れて、好きなだけ動かせる
+
+* Linux
+
+    * Python-devが入ってないと、PILなどサードパーティがコケる
+    * 速度調査のプロファイラがDebian系の標準に入ってない
+    * RedHatではmakeが基本だが、パス系の解決がわかりにくい
+
+* Mac
+    * Macで複数バージョン使うには、MacPorts、Homebrewを使う
+    * 本家にもMac用Pythonがあり、こっちがオススメ
+    * Macの標準Pythonはどのモジュールが使えるかわからない
+    * MacPortsでやるとオプションでモジュールを選択出来る
+
+インタラクティブシェル
+~~~~~~~~~~~~~~~~~~~~~~~
+
+* .pythonstartup
+    * readlineを読み込むと便利
+    * しみずかわさんの.pythonstartupがどこかにある
+
+* python標準
+    * "_"に最後の結果が格納される(エコーバック)
+    * dir(os)が見づらい
+    * doctestの試し書きに便利、そのままテストコードとして貼り付けることが出来る
+
+* iPython
+    * "_n"で過去の結果が全て格納される
+    * dir(os)が見やすい(自動でpretyしてくれる)
+    * help(os.getcwd)をos.getcwd?と書ける
+    * os.getcwd?? でソースコードが表示される
+    * doctestモードがある
+    * autologingモードがある
+
+setuptools
+~~~~~~~~~~~~
+
+* setuptools
+    * 更新が滞っているため、distributeが開発された
+    * distributeはsetuptools互換
+    * pipとdistributeの関連 (http://shimizukawa.bitbucket.org/python-distribute-ja/introduction.html#state-of-packaging-info)
+
+* pip installとeasy_installの違い
+    * easy_installはビルド済みのパッケージ(.egg)をインストール出来る
+    * pip installは全てその場でビルドしてインストールするので、gccが無いとコケる
+    * pipとeasy_installはインストールされるディレクトリ名が異なる
+    * 混在させて使ってもほとんど問題ないが、出来ればやらないほうが良い
+    * ここが詳しい (http://www.freia.jp/taka/docs/pyhack4/environments.html)
+
+* pip
+    * easy_installと違い、アンインストール出来る
+    * 色々と便利なコマンドが揃っている
+    * search: パッケージ検索
+    * bundle: 環境にインストールされてるパッケージをまとめてくれる、PyPIを使わずにインストール出来る
+    * freeze: パッケージ名とバージョンを標準出力に書きだしてくれる、これを使ってpip installやbundleを実行できる
+
+その他
+~~~~~~~
+
+告知
+***********************
+
+* `エキスパートPythonプログラミング読書会 第二期 01 <http://atnd.org/events/21166>`_
+
+次回からやること
+***********************
+
+* ピザをお寿司にする(かも)
+* ビアバッシュLTをやる
+* トゥギャッターまとめと議事録を書いてくれる人を確保する
+
+風景
+***********************
+
+.. image:: http://farm7.staticflickr.com/6229/6325446717_8cfb6995d6.jpg
+
+* `2011/11/08 エキスパートPythonプログラミング読書会2nd #1 <http://www.flickr.com/photos/shimizukawa/sets/72157627957858951/>`_
+
+参加者のまとめ記事
+***********************
+
+* `エキスパートPythonプログラミング読書会 第二期 01に参加してきました <http://kashewnuts-tech.blogspot.com/2011/11/python-01.html?spref=tw>`_
+* `Pythonの環境構築の自分なりのまとめ+エキスパートPythonプログラミング読書会 第二期 01に行ってきました。 <http://d.hatena.ne.jp/kanonji/20111110/1320916100>`_
+* `エキスパートPythonプログラミング読書会 第二期 01 <http://necopy.heroku.com/47>`_
+* `エキスパートPythonプログラミング読書会( #expertpython )第二期の第一回目に参加してきました <http://d.hatena.ne.jp/kutakutatriangle/20111109>`_
+* `2011-11-08 エキPy読書会(第2期) 第1回に行ってきました <http://d.hatena.ne.jp/imagawa_yakata/20111108>`_
+
+
+参加者のツイート
+***********************
+
+* `エキスパートPython読書会 第2期 #1 <http://togetter.com/li/211713>`_
+
+第一期のまとめ
+***********************
+
+* `エキPy読書会01 (2010/8/3) <http://www.freia.jp/taka/docs/expertpython/reading/01.html>`_
