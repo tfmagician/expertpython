@@ -1,0 +1,164 @@
+エキスパートPythonプログラミング読書会 第二期 02
+--------------------------------------------------
+
+第2章 構文ベストプラクティス - クラス以外 2.1〜2.2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* 今日はここを表示しながらやる (森本さん第二期)
+    * http://www.slideshare.net/t2y/py-02-2-5316487
+
+* 内包表記
+    * [i for i in range(10)]
+    * 速い
+        * 理解も速いし、プログラムも速い
+            * 見やすい
+            * 属性呼び出しがない分、速い
+    * 何でも内包表記にしない
+        * 読みやすさとのバランス
+        * [fmt(i, k) for i, k in enumerate(keyword.kwlist)]
+        * 長くなりすぎるならforで書く
+        * 短いなら内包表記で
+    * 言語のシンタックスで実行するので、速い
+    * mapはPythonの初期からあって、内包表記が追加された
+    * Pythonicな構文の一部
+        * http://d.hatena.ne.jp/atsuoishimoto/20110907/1315410339
+
+* enumerate
+    * Pythonは遅くても良いから読みやすいコードを書く
+    * 例
+        * enum = enumerate(keyword.kwlist)
+        * enum.next()
+        * ... StopIteration => ループを抜ける例外
+
+* イテレータとジェネレータ
+    * next関数
+        * ビルドイン関数はアダプタパターンと考えると良い
+            * len: lengthのプロトコルを実装してるオブジェクトに対して、問い合わせる
+            * next: イテレータのプロトコルを実装しているオブジェクトに対して、問い合わせる
+    * 質問
+        * プロトコルって何？
+            * どこに何を問い合わせ
+            * 誰が定義している？
+                * リファレンスに定義されている
+                * 暗黙の了解なのか？
+                    * ドキュメントがある (言語リファレンス)
+                        * 5.5 組み込み型
+                    * 言語としての保証
+                        * ABCs (Abstract Base Classes)
+                            * collections
+                                * Container
+                                * Hashable
+                                * Iterable
+                                * Iterator
+            * イテレータとシーケンスは異なる
+                * for文は両方対応している
+        * iterのアダプタパターンがよく分からない
+            * iter("abc")はなぜ、イテレーションパターンになるのか？
+                * アダプタパターンとは、海外のプラグを日本のプラグに変換するようなもの
+                * 橋渡しをするのがアダプタパターン
+    * ジェネレータ
+        * yieldがあればジェネレータ
+        * yieldがなければ関数
+        * yieldが終われば、StopIterationが発生する
+        * yieldがあるだけで、別の概念に変わる
+        * returnとyieldを一緒に書くと怒られる
+        * メモリを食わない
+            * 値を捨てる
+            * 元の値に戻れない
+        * しみずかわさんの使い方
+            * データベースのカーソルを隠蔽
+            * レコード読み込みをforで書く
+        * 外部干渉するための方法
+            * sendメソッド (Python2.5から利用可能)
+        * 2.4からyieldは式に変わった
+            * nextはNoneが返る
+            * sendを送ると、ジェネレータが方向転換するイメージ
+    * 式と文
+        * x
+            * 式
+            * 値を返す
+        * for x in (r = range(10)):
+            * これは許可されない
+            * r = range(10) => この部分が文のため
+        * ドキュメントでは式と文が明確に分けられている
+    * 質問
+        * sendの実例
+            * 特殊な例が多いので、説明しにくい
+            * yieldに値を渡せることだけ覚えておけば、後で役に立つ
+
+* ジェネレータ式
+    * イテレータ式を少し変えるだけでメモリ消費が抑えられる
+
+* ジェネレータに関するTips
+    サンプルコード::
+
+        def foo(seq):
+            for x in seq:
+                print x
+
+        foo([x.upper() for x in kw[:5]])
+        foo((x.upper() for x in kw[:5]))
+        # こういう場合に限り、下記表記が可能
+        foo(x.upper() for x in kw[:5])
+
+        # xrangeとrangeの違い
+        # 3系ではxrangeがrangeになるので、今2系ではあまりメリットが無い。量が大きい時に使うくらい。
+
+* ブレースはPython3.1では {}, (), [] の3種類ある
+
+* reduce, filter, map
+    * この３つを知らなくても、リスト内包表記でいける
+        サンプルコード::
+
+            filter(lambda x:x%2, range(10))
+            [x for x in range(10) if x % 2]
+
+* PEP
+    * PythonはPEPに基づいているか議論するため、モダンな機能の追加が遅い
+    * 2.4で提案された機能が2.7で実装されたり
+    * 代表的なPEP
+        * PEP1
+            * PEPとは何かを定義
+        * PEP8
+            * Pythonのコーディング規約
+
+告知
+~~~~~~~~~~~~~~~~~~~~~~~
+
+* `エキスパートPythonプログラミング読書会 第二期 02 <https://connpass.com/event/118/>`_
+
+次回からやること
+~~~~~~~~~~~~~~~~~~~~~~~
+
+* ビアバッシュLTのタイムスケジュールしっかりする
+* しみずかわさんのライブコーディングのログを取る
+
+風景
+~~~~~~~~~~~~~~~~~~~~~~~
+
+.. image:: http://farm8.staticflickr.com/7002/6510341121_9cef47f07a.jpg
+
+* `2011/12/13 エキスパートPythonプログラミング読書会2nd #2 <http://www.flickr.com/photos/shimizukawa/sets/72157628415291395/with/6510349315/>`_
+
+参加者のまとめ記事
+~~~~~~~~~~~~~~~~~~~~~~~
+
+* `エキスパートPythonプログラミング読書会 第二期 02に参加した <http://d.hatena.ne.jp/inoshirou/20111215/1323966995>`_
+* `エキPy読書会　第二期02参加しました　No.1 <http://necopy.heroku.com/51>`_
+* `エキPy読書会　第二期02参加しました　No.2 <http://necopy.heroku.com/52>`_
+* `(感想)「エキスパートPythonプログラミング読書会 第二期 02」参加してきました。 <http://kashewnuts-tech.blogspot.com/2011/12/python-02.html>`_
+* `(続き)「エキスパートPythonプログラミング読書会 第二期 02」参加してきました。 <http://kashewnuts-tech.blogspot.com/2011/12/python-02_15.html>`_
+* `「エキスパートPythonプログラミング読書会 第二期 02」のメモ <http://d.hatena.ne.jp/webapp/20111214/1323857657>`_
+* `エキスパートPythonプログラミング読書会( #expertpython )第二期の第二回目、参加メモ <http://d.hatena.ne.jp/kutakutatriangle/20111227/1324983279>`_
+* `1人アドベントカレンダー14日目「エキスパートPythonプログラミング読書会 第二期 02」 <http://d.hatena.ne.jp/usaturn4649/20111214/1323803931>`_
+* `エキスパートPythonプログラミング読書会 第二期 02 <https://github.com/mactkg/notes/blob/master/expy_s2/002.md>`_
+
+参加者のツイート
+~~~~~~~~~~~~~~~~~~~~~~~
+
+* `エキスパートPython読書会 第２期 第2回 <http://togetter.com/li/227251>`_
+
+第一期のまとめ
+~~~~~~~~~~~~~~~~~~~~~~~
+
+* `エキPy読書会01 (2010/8/3) <http://www.freia.jp/taka/docs/expertpython/reading/01.html>`_
