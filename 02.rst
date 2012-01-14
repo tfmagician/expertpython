@@ -161,4 +161,4 @@
 第一期のまとめ
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-* `エキPy読書会01 (2010/8/3) <http://www.freia.jp/taka/docs/expertpython/reading/01.html>`_
+* `エキPy読書会02 (2010/9/7) <http://www.freia.jp/taka/docs/expertpython/reading/02.html>`_
